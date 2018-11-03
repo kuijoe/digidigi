@@ -11,6 +11,7 @@ input[type="text"] {
     border: 1px solid #F1F1F1;
     margin: 0 1rem 0 0;
     padding: 0 1rem;
+    font-size: 1rem;
 }
 
 input[type="text"]::placeholder {
@@ -26,7 +27,35 @@ input[type="text"]::placeholder {
     line-height: 2.5rem;
     height: 2.5rem;
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: 600;
     vertical-align: middle;
     padding: 0 2rem;
+    float: right;
+}
+
+/* 967px breakpoint */
+@media all and (max-width: 61rem) { 
+    .add-participant-form {
+        height: auto;
+        text-align: center;
+    }
+
+    .add-participant-form input {
+        display: block;
+        margin: 0 auto 1rem;
+
+        /* 160px + 2x 16px padding + 2x 1px border */
+        width: calc(10rem - 2px);
+    }
+
+    .add-participant-form input[type="text"] {
+        
+    }
+
+    .add-participant-form input[type="submit"] {
+        float: initial;
+        padding: 0 1rem;
+        width: 12rem;
+        margin: 0 auto;
+    }
 }
