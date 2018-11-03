@@ -49,8 +49,8 @@ all_ids.sort(function(a, b){return 0.5 - Math.random()});
 
 // Generate twenty rows that each have an id, name, email and mobile phone number
 for (let i = 0; i < 20; i++) {
-  const firstnames = ["Matti", "Teppo", "Seppo", "Antti", "Pekka", "Jussi", "Pentti", "Jorma", "Kalevi", "Valdemar", "Bruno"];
-  const lastnames = ["Korhonen", "Virtanen", "Mattila", "Ruohonen", "Jormanainen", "Rintala", "Pekkala", "Haapala", "Reijola", "Viinanen", "Ruukkula"];
+  const firstnames = ["Matti", "Teppo", "Seppo", "Antti", "Pekka", "Jussi", "Pentti", "Jorma", "Kalevi", "Valdemar", "Bruno", "Pentti", "Sepeteus", "Aslak", "Niilo"];
+  const lastnames = ["Korhonen", "Virtanen", "Mattila", "Ruohonen", "Jormanainen", "Rintala", "Pekkala", "Haapala", "Reijola", "Viinanen", "Ruukkula", "Korhonen", "Liimatainen"];
 
   let randomized_first_name = firstnames[Math.floor(Math.random() * firstnames.length)];
   let randomized_last_name = lastnames[Math.floor(Math.random() * lastnames.length)];
@@ -62,8 +62,6 @@ for (let i = 0; i < 20; i++) {
     phone: generate_mobile()
   });
 }
-
-console.log(random_rows);
 
 class App extends Component {
   render() {
