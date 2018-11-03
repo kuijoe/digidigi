@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './ParticipantsTable.css';
 
-// TODO: pass data to table
 class ParticipantsTable extends Component {
     render() {
       return (

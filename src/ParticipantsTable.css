@@ -72,6 +72,7 @@ label.mobile {
 .participants-table tr {
     width: 100%;
     padding-top: 1rem;
+    border-bottom: 0.5rem solid #F1F1F1;
 }
 
 .participants-table tr, .participants-table tr td {

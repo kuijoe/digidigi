@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ParticipantsTable from './ParticipantsTable';
+import AddParticipantForm from './AddParticipantForm';
 import './App.css';
 
 let all_ids = [];
@@ -67,7 +68,10 @@ console.log(random_rows);
 class App extends Component {
   render() {
     return (
-      <ParticipantsTable data = {random_rows} />
+      <div>
+        <AddParticipantForm />
+        <ParticipantsTable data = {random_rows} />
+      </div>
     )
   }
 }
