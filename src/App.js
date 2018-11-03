@@ -66,7 +66,7 @@ for (let i = 0; i < 20; i++) {
 class App extends Component {
   render() {
     return (
-      <div>
+      <div id="app-wrapper">
         <AddParticipantForm />
         <ParticipantsTable data = {random_rows} />
       </div>

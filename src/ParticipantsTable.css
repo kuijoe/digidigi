@@ -18,6 +18,10 @@
     border-bottom: 1px solid #F1F1F1;
     background-color: #FFFFFF;
   }
+
+  .participants-table tr.controls th {
+    cursor: pointer;
+}
   
   .participants-table td {
     font-size: 1rem;

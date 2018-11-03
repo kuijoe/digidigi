@@ -40,6 +40,7 @@ input[type="text"]::placeholder {
     vertical-align: middle;
     padding: 0 2rem;
     float: right;
+    cursor: pointer;
 }
 
 /* 967px breakpoint */
