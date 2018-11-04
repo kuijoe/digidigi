@@ -28,6 +28,15 @@ class AddParticipantForm extends Component {
     handleSubmit(event) {
         console.log(this.state);
         event.preventDefault();
+
+        let formData = {
+            user_id: 999999,
+            full_name: "Pertti Pasanen",
+            email: "spede.pasanen@mtv3.fi",
+            phone: "050 1234567"
+          };
+
+        this.props.submittedFormData(formData);
     }
 
     render() {

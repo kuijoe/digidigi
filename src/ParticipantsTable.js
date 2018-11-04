@@ -4,14 +4,15 @@ import './ParticipantsTable.css';
 class ParticipantsTable extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: this.props.data
-    };
+    // this.state = {
+    //   data: this.props.data
+    // };
 
     this.compareBy.bind(this);
     this.sortBy.bind(this);
   }
 
+  // TODO: Add descending sort
   compareBy(key) {
     return function (a, b) {
       if (a[key] < b[key]) return -1;
@@ -19,11 +20,16 @@ class ParticipantsTable extends Component {
       return 0;
     };
   }
- 
+
   sortBy(key) {
     let arrayCopy = [...this.state.data];
     arrayCopy.sort(this.compareBy(key));
-    this.setState({data: arrayCopy});
+    this.setState({ data: arrayCopy });
+  }
+
+  // TODO
+  deleteRow() {
+
   }
 
   render() {
@@ -37,7 +43,7 @@ class ParticipantsTable extends Component {
             <th></th>
           </tr>
 
-          {this.state.data.map(function (item, index) {
+          {this.props.data.map(function (item, index) {
             return (
               <tr key={item.user_id}>
                 <td className="full_name"><label className="mobile">Name</label>{item.full_name}</td>
