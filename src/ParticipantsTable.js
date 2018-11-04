@@ -7,6 +7,7 @@ class ParticipantsTable extends Component {
 
     this.compareBy.bind(this);
     this.sortBy.bind(this);
+    this.deleteRow.bind(this);
   }
 
   // TODO: Add descending sort
@@ -26,9 +27,10 @@ class ParticipantsTable extends Component {
     this.props.passSortedDataBack(arrayCopy);
   }
 
-  // TODO
-  deleteRow() {
-
+  // TODO Delete single row from table
+  deleteRow(e) {
+    console.log("So you want to delete me, right?");
+    console.log("index: " + e);
   }
 
   render() {
@@ -48,10 +50,14 @@ class ParticipantsTable extends Component {
                 <td className="full_name"><label className="mobile">Name</label>{item.full_name}</td>
                 <td className="email"><label className="mobile">E-mail address</label>{item.email}</td>
                 <td className="phone"><label className="mobile">Phone number</label>{item.phone}</td>
-                <td className="options"><label className="mobile">Options</label><span className="pencil"></span><span className="trashcan"></span></td>
+                <td className="options">
+                  <label className="mobile">Options</label>
+                  <span className="pencil"></span>
+                  <span className="trashcan" onClick={() => this.deleteRow(item.user_id)}></span>
+                </td>
               </tr>
             )
-          })}
+          }, this)}
         </tbody>
       </table>
     );

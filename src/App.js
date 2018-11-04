@@ -21,102 +21,102 @@ class App extends Component {
     };
   }
 
-// Generate dummy email addresses
-generate_half_random_email(firstname, lastname) {
-  firstname = firstname.toLowerCase();
-  lastname = lastname.toLowerCase();
+  // Generate dummy email addresses
+  generate_half_random_email(firstname, lastname) {
+    firstname = firstname.toLowerCase();
+    lastname = lastname.toLowerCase();
 
-  let domain = "";
-  const characters = "abcdefghijklmnopqrstuvwxyz0123456789";
+    let domain = "";
+    const characters = "abcdefghijklmnopqrstuvwxyz0123456789";
 
-  for (var i = 0; i < 7; i++) {
-    domain += characters.charAt(Math.floor(Math.random() * characters.length));
+    for (var i = 0; i < 7; i++) {
+      domain += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+
+    let email = firstname + "." + lastname + "@" + domain + ".com";
+
+    return email;
   }
 
-  let email = firstname + "." + lastname + "@" + domain + ".com";
+  // Generate non-unique Finnish mobile phone number
+  generate_mobile() {
+    const digits = "0123456789";
+    const prefixes = ["045", "050", "040"];
 
-  return email;
-}
+    let number_suffix = "";
 
-// Generate non-unique Finnish mobile phone number
-generate_mobile() {
-  const digits = "0123456789";
-  const prefixes = ["045", "050", "040"];
+    for (var i = 0; i < 7; i++) {
+      number_suffix += digits.charAt(Math.floor(Math.random() * digits.length));
+    }
 
-  let number_suffix = "";
+    let random_prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
 
-  for (var i = 0; i < 7; i++) {
-    number_suffix += digits.charAt(Math.floor(Math.random() * digits.length));
+    return random_prefix + number_suffix;
   }
 
-  let random_prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+  // Generate twenty rows that each have an id, name, email and mobile phone number
+  generateRandomRows(amount) {
+    let generated_ids = [];
 
-  return random_prefix + number_suffix;
-}
+    // Generate an array of numbers between 1-100
+    for (let i = 1; i < 101; i++) {
+      generated_ids.push(i);
+    }
 
-// Generate twenty rows that each have an id, name, email and mobile phone number
-generateRandomRows(amount) {
-  let generated_ids = [];
+    // Sort id array in a "random" order
+    generated_ids.sort(function (a, b) { return 0.5 - Math.random() });
 
-  // Generate an array of numbers between 1-100
-  for (let i = 1; i < 101; i++) {
-    generated_ids.push(i);
+    let randomRows = [];
+
+    for (let i = 0; i < amount; i++) {
+      const firstnames = ["Matti", "Teppo", "Seppo", "Antti", "Pekka", "Jussi", "Pentti", "Jorma", "Kalevi", "Valdemar", "Bruno", "Pentti", "Sepeteus", "Aslak", "Niilo"];
+      const lastnames = ["Korhonen", "Virtanen", "Mattila", "Ruohonen", "Jormanainen", "Rintala", "Pekkala", "Haapala", "Reijola", "Viinanen", "Ruukkula", "Korhonen", "Liimatainen"];
+
+      let randomizedFirstName = firstnames[Math.floor(Math.random() * firstnames.length)];
+      let randomizedLastName = lastnames[Math.floor(Math.random() * lastnames.length)];
+
+      randomRows.push({
+        user_id: generated_ids[i],
+        full_name: randomizedFirstName + " " + randomizedLastName,
+        email: this.generate_half_random_email(randomizedFirstName, randomizedLastName),
+        phone: this.generate_mobile()
+      });
+    }
+
+    return randomRows;
   }
 
-  // Sort id array in a "random" order
-  generated_ids.sort(function (a, b) { return 0.5 - Math.random() });
+  // 
+  addParticipant(form_data) {
+    console.log(form_data);
 
-  let randomRows = [];
+    // TODO: Find out the largest id & increment that
 
-  for (let i = 0; i < amount; i++) {
-    const firstnames = ["Matti", "Teppo", "Seppo", "Antti", "Pekka", "Jussi", "Pentti", "Jorma", "Kalevi", "Valdemar", "Bruno", "Pentti", "Sepeteus", "Aslak", "Niilo"];
-    const lastnames = ["Korhonen", "Virtanen", "Mattila", "Ruohonen", "Jormanainen", "Rintala", "Pekkala", "Haapala", "Reijola", "Viinanen", "Ruukkula", "Korhonen", "Liimatainen"];
+    let currentRows = [...this.state.randomRows];
+    currentRows.push(form_data);
 
-    let randomizedFirstName = firstnames[Math.floor(Math.random() * firstnames.length)];
-    let randomizedLastName = lastnames[Math.floor(Math.random() * lastnames.length)];
+    this.setState({ randomRows: currentRows });
 
-    randomRows.push({
-      user_id: generated_ids[i],
-      full_name: randomizedFirstName + " " + randomizedLastName,
-      email: this.generate_half_random_email(randomizedFirstName, randomizedLastName),
-      phone: this.generate_mobile()
-    });
+    console.log(this.state);
   }
 
-  return randomRows;
-}
+  // Get form data from AddParticipationForm
+  getFormData(form_data) {
+    this.addParticipant(form_data);
+  }
 
-// 
-addParticipant(form_data) {
-  console.log(form_data);
+  doThings(sortedRowData) {
+    this.setState({ randomRows: sortedRowData });
+  }
 
-  // TODO: Find out the largest id & increment that
-
-  let currentRows = [...this.state.randomRows];
-  currentRows.push(form_data);
-
-  this.setState({ randomRows: currentRows });
-
-  console.log(this.state);
-}
-
-// Get form data from AddParticipationForm
-getFormData(form_data) {
-  this.addParticipant(form_data);
-}
-
-doThings(sortedRowData) {
-  this.setState({ randomRows: sortedRowData });
-}
-
-render() {
-  return (
-    <div id="app-wrapper">
-      <AddParticipantForm submittedFormData={this.getFormData} />
-      <ParticipantsTable data={this.state.randomRows} passSortedDataBack={this.doThings} />
-    </div>
-  )
-}
+  render() {
+    return (
+      <div id="app-wrapper">
+        <AddParticipantForm submittedFormData={this.getFormData} />
+        <ParticipantsTable data={this.state.randomRows} passSortedDataBack={this.doThings} />
+      </div>
+    )
+  }
 }
 
 export default App;

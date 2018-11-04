@@ -39,7 +39,7 @@ class AddParticipantForm extends Component {
 
         this.props.submittedFormData(formData);
 
-        // TODO: Empty inputs
+        // TODO: Empty inputs & Show some kind of message to user
     }
 
     render() {
