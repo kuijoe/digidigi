@@ -4,7 +4,7 @@ import './AddParticipantForm.css';
 class AddParticipantForm extends Component {
     constructor(props) {
         super(props);
-        
+
         this.state = {
             full_name: "",
             email: "",
@@ -12,8 +12,8 @@ class AddParticipantForm extends Component {
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
-
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleButtonClick = this.handleButtonClick.bind(this);
     }
 
     // Update component's state every time an input changes
@@ -51,6 +51,11 @@ class AddParticipantForm extends Component {
         alert("New participant added");
     }
 
+    // Remove the focus from submit
+    handleButtonClick(event) {
+        this.buttonDOM.blur();
+    }
+
     render() {
         return (
             <div className="add-participant-form">
@@ -58,7 +63,7 @@ class AddParticipantForm extends Component {
                     <input type="text" placeholder="Full name" name="full_name" required minLength="4" value={this.state.full_name} onChange={this.handleInputChange} />
                     <input type="email" placeholder="E-mail address" name="email" required value={this.state.email} onChange={this.handleInputChange} />
                     <input type="tel" placeholder="Phone number" name="phone" required pattern="[0-9]{5,10}" value={this.state.phone} onChange={this.handleInputChange} />
-                    <input type="submit" value="Add new" />
+                    <input type="submit" value="Add new" onClick={this.handleButtonClick} ref={(buttonDOM) => { this.buttonDOM = buttonDOM; }} />
                 </form>
             </div>
         );

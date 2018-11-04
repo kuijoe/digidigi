@@ -43,6 +43,14 @@ input[type="text"]::placeholder {
     cursor: pointer;
 }
 
+.add-participant-form input[type="submit"]:focus {
+    background-color: grey;
+}
+
+input[type="submit"]:focus, input[type="submit"]::-moz-focus-inner {
+    outline: none;
+}
+
 /* 967px breakpoint */
 @media all and (max-width: 61rem) { 
     .add-participant-form {
