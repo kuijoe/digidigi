@@ -21,16 +21,28 @@ class ParticipantsTable extends Component {
 
   // FIXME: Should the array sorting be done in parent?
   sortBy(key) {
+    // Clone the current array of objects
     let arrayCopy = JSON.parse(JSON.stringify(this.props.data));
+
+    // Sort cloned array by given key (the table header clicked)
     arrayCopy.sort(this.compareBy(key));
 
     this.props.passSortedDataBack(arrayCopy);
   }
 
   // TODO Delete single row from table
-  deleteRow(e) {
-    console.log("So you want to delete me, right?");
-    console.log("index: " + e);
+  deleteRow(userId) {
+    let arrayCopy = JSON.parse(JSON.stringify(this.props.data));
+
+    let arrayIndex = arrayCopy.findIndex(function(rows) {
+      return rows.user_id === userId;
+    });
+
+    // Delete row from array with given index
+    arrayCopy.splice(arrayIndex, 1);
+
+    // Pass array data back to parent without the index that was just deleted
+    this.props.passSortedDataBack(arrayCopy);
   }
 
   render() {
