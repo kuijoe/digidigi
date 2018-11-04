@@ -19,7 +19,7 @@ class ParticipantsTable extends Component {
     };
   }
 
-  // FIXME: Should the array sorting be done in parent?
+  // Sort array by given key
   sortBy(key) {
     // Clone the current array of objects
     let arrayCopy = JSON.parse(JSON.stringify(this.props.data));
@@ -30,7 +30,7 @@ class ParticipantsTable extends Component {
     this.props.passSortedDataBack(arrayCopy);
   }
 
-  // TODO Delete single row from table
+  // Delete single row from table
   deleteRow(userId) {
     let arrayCopy = JSON.parse(JSON.stringify(this.props.data));
 
@@ -41,7 +41,7 @@ class ParticipantsTable extends Component {
     // Delete row from array with given index
     arrayCopy.splice(arrayIndex, 1);
 
-    // Pass array data back to parent without the index that was just deleted
+    // Pass array data back to parent without the row that was just deleted
     this.props.passSortedDataBack(arrayCopy);
   }
 

@@ -7,12 +7,11 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    // Bind
+    // Bind functions
     this.addParticipant = this.addParticipant.bind(this);
     this.generateRandomRows = this.generateRandomRows.bind(this);
     this.getFormData = this.getFormData.bind(this);
-    this.doThings = this.doThings.bind(this);
-
+    this.changeState = this.changeState.bind(this);
 
     let randomRows = this.generateRandomRows(20);
 
@@ -22,7 +21,7 @@ class App extends Component {
   }
 
   // Generate dummy email addresses
-  generate_half_random_email(firstname, lastname) {
+  generateHalfRandomEmail(firstname, lastname) {
     firstname = firstname.toLowerCase();
     lastname = lastname.toLowerCase();
 
@@ -43,28 +42,28 @@ class App extends Component {
     const digits = "0123456789";
     const prefixes = ["045", "050", "040"];
 
-    let number_suffix = "";
+    let numberSuffix = "";
 
     for (var i = 0; i < 7; i++) {
-      number_suffix += digits.charAt(Math.floor(Math.random() * digits.length));
+      numberSuffix += digits.charAt(Math.floor(Math.random() * digits.length));
     }
 
-    let random_prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+    let randomPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
 
-    return random_prefix + number_suffix;
+    return randomPrefix + numberSuffix;
   }
 
   // Generate twenty rows that each have an id, name, email and mobile phone number
   generateRandomRows(amount) {
-    let generated_ids = [];
+    let generatedIds = [];
 
     // Generate an array of numbers between 1-100
     for (let i = 1; i < 101; i++) {
-      generated_ids.push(i);
+      generatedIds.push(i);
     }
 
     // Sort id array in a "random" order
-    generated_ids.sort(function (a, b) { return 0.5 - Math.random() });
+    generatedIds.sort(function (a, b) { return 0.5 - Math.random() });
 
     let randomRows = [];
 
@@ -76,9 +75,9 @@ class App extends Component {
       let randomizedLastName = lastnames[Math.floor(Math.random() * lastnames.length)];
 
       randomRows.push({
-        user_id: generated_ids[i],
+        user_id: generatedIds[i],
         full_name: randomizedFirstName + " " + randomizedLastName,
-        email: this.generate_half_random_email(randomizedFirstName, randomizedLastName),
+        email: this.generateHalfRandomEmail(randomizedFirstName, randomizedLastName),
         phone: this.generate_mobile()
       });
     }
@@ -86,14 +85,22 @@ class App extends Component {
     return randomRows;
   }
 
-  // 
-  addParticipant(form_data) {
-    console.log(form_data);
-
-    // TODO: Find out the largest id & increment that
-
+  // Add new participant row to the existing array
+  addParticipant(formData) {
+    // Capture the state before we try to add new
     let currentRows = [...this.state.randomRows];
-    currentRows.push(form_data);
+
+    // Find out the largest id & increment that by one
+    // https://codeburst.io/javascript-finding-minimum-and-maximum-values-in-an-array-of-objects-329c5c7e22a2
+    function getMaxY() {
+      return currentRows.reduce((max, p) => p.user_id > max ? p.user_id : max, currentRows[0].user_id);
+    }
+
+    let biggestUserId = getMaxY();
+
+    formData.user_id = biggestUserId + 1;
+    
+    currentRows.push(formData);
 
     this.setState({ randomRows: currentRows });
 
@@ -101,11 +108,12 @@ class App extends Component {
   }
 
   // Get form data from AddParticipationForm
-  getFormData(form_data) {
-    this.addParticipant(form_data);
+  getFormData(formData) {
+    this.addParticipant(formData);
   }
 
-  doThings(sortedRowData) {
+  // FIXME: Find a better way to do this without a separate function
+  changeState(sortedRowData) {
     this.setState({ randomRows: sortedRowData });
   }
 
@@ -113,7 +121,7 @@ class App extends Component {
     return (
       <div id="app-wrapper">
         <AddParticipantForm submittedFormData={this.getFormData} />
-        <ParticipantsTable data={this.state.randomRows} passSortedDataBack={this.doThings} />
+        <ParticipantsTable data={this.state.randomRows} passSortedDataBack={this.changeState} />
       </div>
     )
   }
