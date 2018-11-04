@@ -90,21 +90,24 @@ class App extends Component {
     // Capture the state before we try to add new
     let currentRows = [...this.state.randomRows];
 
-    // Find out the largest id & increment that by one
-    // https://codeburst.io/javascript-finding-minimum-and-maximum-values-in-an-array-of-objects-329c5c7e22a2
-    function getMaxY() {
-      return currentRows.reduce((max, p) => p.user_id > max ? p.user_id : max, currentRows[0].user_id);
+    // Check whether there are existing records, otherwise the user_id will be set as 1
+    if (currentRows.length) {
+      // Find out the largest id & increment that by one
+      // https://codeburst.io/javascript-finding-minimum-and-maximum-values-in-an-array-of-objects-329c5c7e22a2
+      function getMaxY() {
+        return currentRows.reduce((max, p) => p.user_id > max ? p.user_id : max, currentRows[0].user_id);
+      }
+
+      let biggestUserId = getMaxY();
+
+      formData.user_id = biggestUserId + 1;
+    } else {
+      formData.user_id = 1;
     }
 
-    let biggestUserId = getMaxY();
-
-    formData.user_id = biggestUserId + 1;
-    
     currentRows.push(formData);
 
     this.setState({ randomRows: currentRows });
-
-    console.log(this.state);
   }
 
   // Get form data from AddParticipationForm

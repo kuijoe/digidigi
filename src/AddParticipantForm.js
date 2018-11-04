@@ -16,6 +16,7 @@ class AddParticipantForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    // Update component's state every time an input changes
     handleInputChange(event) {
         const target = event.target;
         const value = target.value;
@@ -26,8 +27,8 @@ class AddParticipantForm extends Component {
         });
     }
 
+    // Submit button pressed
     handleSubmit(event) {
-        console.log(this.state);
         event.preventDefault();
 
         let formData = {
@@ -37,9 +38,17 @@ class AddParticipantForm extends Component {
             phone: this.state.phone
         };
 
+        // Pass form data to parent
         this.props.submittedFormData(formData);
 
-        // TODO: Empty inputs & Show some kind of message to user
+        // Reset form & display (an annoying) success message to user
+        this.setState({
+            full_name: "",
+            email: "",
+            phone: ""
+        });
+
+        alert("New participant added");
     }
 
     render() {
