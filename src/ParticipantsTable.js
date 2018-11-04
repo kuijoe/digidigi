@@ -4,9 +4,6 @@ import './ParticipantsTable.css';
 class ParticipantsTable extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   data: this.props.data
-    // };
 
     this.compareBy.bind(this);
     this.sortBy.bind(this);
@@ -21,10 +18,12 @@ class ParticipantsTable extends Component {
     };
   }
 
+  // FIXME: Should the array sorting be done in parent?
   sortBy(key) {
-    let arrayCopy = [...this.state.data];
+    let arrayCopy = JSON.parse(JSON.stringify(this.props.data));
     arrayCopy.sort(this.compareBy(key));
-    this.setState({ data: arrayCopy });
+
+    this.props.passSortedDataBack(arrayCopy);
   }
 
   // TODO

@@ -1,29 +1,29 @@
 .participants-table {
     width: 100%;
     border-collapse: collapse;
-  }
-  
-  .participants-table th {
+}
+
+.participants-table th {
     color: #757575;
     font-weight: 500;
     line-height: 1rem;
     font-size: 0.875rem;
     text-align: left;
     height: 47px;
-    padding: 0;   
-  }
-  
-  .participants-table tr {
+    padding: 0;
+}
+
+.participants-table tr {
     width: 100%;
     border-bottom: 1px solid #F1F1F1;
     background-color: #FFFFFF;
-  }
+}
 
-  .participants-table tr.controls th {
+.participants-table tr.controls th {
     cursor: pointer;
 }
-  
-  .participants-table td {
+
+.participants-table td {
     font-size: 1rem;
     line-height: 1.5rem;
     color: #505050;
@@ -31,22 +31,22 @@
     background-color: #FFFFFF;
     height: 71px;
     padding: 0;
-  }
+}
 
-  .participants-table tr th:first-child, .participants-table tr td:first-child {
+.participants-table tr th:first-child, .participants-table tr td:first-child {
     padding: 0 0 0 1.5rem;
-  }
+}
 
-  .participants-table tr th:last-child, .participants-table tr td:last-child {
+.participants-table tr th:last-child, .participants-table tr td:last-child {
     padding: 0 1.5rem 0 0;
-  }
+}
 
-  .participants-table td.options {
+.participants-table td.options {
     text-align: right;
     line-height: 1.5rem;
 }
 
-  span.pencil {
+span.pencil {
     background-image: url("./pencil.jpg");
     width: 1.5rem;
     height: 1.5rem;
@@ -65,46 +65,37 @@ span.trashcan {
     line-height: 1.5rem;
 }
 
-/*  */
 label.mobile {
     display: none;
 }
 
 @media all and (max-width: 48rem) {
-
-/* Display table differently */
-.participants-table tr {
-    width: 100%;
-    padding-top: 1rem;
-    border-bottom: 0.5rem solid #F1F1F1;
-}
-
-.participants-table tr, .participants-table tr td {
-    display: block;
-    width: 100%;
-}
-
-/* Remove left and right padding on mobile */
-.participants-table tr th:first-child, .participants-table tr th:last-child, .participants-table tr td:first-child, .participants-table tr td:last-child {
-    padding: 0;
-}
-
-.participants-table tr.controls {
-    display: none;
-}
-
-/* Display labels only on mobile size */
-label.mobile {
-    display: block;
-    font-weight: bold;
-}
-
-.participants-table td, .participants-table td.options {
-    text-align: center;
-}
-
-span.pencil {
-    margin-right: 0.75rem;
-}
-
+    /* Display table differently */
+    .participants-table tr {
+        width: 100%;
+        padding-top: 1rem;
+        border-bottom: 0.5rem solid #F1F1F1;
+    }
+    .participants-table tr, .participants-table tr td {
+        display: block;
+        width: 100%;
+    }
+    /* Remove left and right padding on mobile */
+    .participants-table tr th:first-child, .participants-table tr th:last-child, .participants-table tr td:first-child, .participants-table tr td:last-child {
+        padding: 0;
+    }
+    .participants-table tr.controls {
+        display: none;
+    }
+    /* Display labels only on mobile size */
+    label.mobile {
+        display: block;
+        font-weight: bold;
+    }
+    .participants-table td, .participants-table td.options {
+        text-align: center;
+    }
+    span.pencil {
+        margin-right: 0.75rem;
+    }
 }

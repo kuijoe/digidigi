@@ -4,6 +4,7 @@ import './AddParticipantForm.css';
 class AddParticipantForm extends Component {
     constructor(props) {
         super(props);
+        
         this.state = {
             full_name: "",
             email: "",
@@ -11,7 +12,7 @@ class AddParticipantForm extends Component {
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
-    
+
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -19,24 +20,26 @@ class AddParticipantForm extends Component {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-    
+
         this.setState({
-          [name]: value
+            [name]: value
         });
-      }
+    }
 
     handleSubmit(event) {
         console.log(this.state);
         event.preventDefault();
 
         let formData = {
-            user_id: 999999,
-            full_name: "Pertti Pasanen",
-            email: "spede.pasanen@mtv3.fi",
-            phone: "050 1234567"
-          };
+            user_id: null,
+            full_name: this.state.full_name,
+            email: this.state.email,
+            phone: this.state.phone
+        };
 
         this.props.submittedFormData(formData);
+
+        // TODO: Empty inputs
     }
 
     render() {
@@ -52,5 +55,5 @@ class AddParticipantForm extends Component {
         );
     }
 }
-  
+
 export default AddParticipantForm;
