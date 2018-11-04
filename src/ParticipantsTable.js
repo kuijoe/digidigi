@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './ParticipantsTable.css';
+import EditParticipantForm from './EditParticipantForm';
 
 class ParticipantsTable extends Component {
   constructor(props) {
@@ -8,6 +9,9 @@ class ParticipantsTable extends Component {
     this.compareBy.bind(this);
     this.sortBy.bind(this);
     this.deleteRow.bind(this);
+    this.editRow.bind(this);
+    this.passDataBack = this.passDataBack.bind(this);
+    this.editRowData = this.editRowData.bind(this);
   }
 
   // TODO: Add descending sort
@@ -34,8 +38,8 @@ class ParticipantsTable extends Component {
   deleteRow(userId) {
     let arrayCopy = JSON.parse(JSON.stringify(this.props.data));
 
-    let arrayIndex = arrayCopy.findIndex(function(rows) {
-      return rows.user_id === userId;
+    let arrayIndex = arrayCopy.findIndex(function (rows) {
+      return rows.userId === userId;
     });
 
     // Delete row from array with given index
@@ -45,30 +49,60 @@ class ParticipantsTable extends Component {
     this.props.passSortedDataBack(arrayCopy);
   }
 
+  // TODO: Inline-edit selected row
+  editRow(userId) {
+    this.props.editableRowData(userId);
+  }
+
+  // Pass current table data back
+  passDataBack() {
+    this.props.tableData(this.props.data);
+  }
+
+  // Update single row data
+  editRowData(data) {
+    let arrayCopy = JSON.parse(JSON.stringify(this.props.data));
+
+    let arrayIndex = arrayCopy.findIndex(function (rows) {
+      return rows.userId === data.userId;
+    });
+
+    // Update row data
+    arrayCopy[arrayIndex] = data;
+
+    this.props.tableData(arrayCopy);
+  }
+
   render() {
     return (
       <table className="participants-table">
         <tbody>
           <tr className="controls">
-            <th onClick={() => this.sortBy("full_name")} >Name</th>
+            <th onClick={() => this.sortBy("fullname")} >Name</th>
             <th onClick={() => this.sortBy("email")}>E-mail address</th>
             <th onClick={() => this.sortBy("phone")}>Phone number</th>
             <th></th>
           </tr>
 
           {this.props.data.map(function (item, index) {
-            return (
-              <tr key={item.user_id}>
-                <td className="full_name"><label className="mobile">Name</label>{item.full_name}</td>
-                <td className="email"><label className="mobile">E-mail address</label>{item.email}</td>
-                <td className="phone"><label className="mobile">Phone number</label>{item.phone}</td>
-                <td className="options">
-                  <label className="mobile">Options</label>
-                  <span className="pencil"></span>
-                  <span className="trashcan" onClick={() => this.deleteRow(item.user_id)}></span>
-                </td>
-              </tr>
-            )
+            if (item.userId === this.props.getEditableRowData) {
+              return (
+                <EditParticipantForm key={item.userId} data={item} cancelButtonPressed={this.passDataBack} inlineData={this.editRowData} />
+              )
+            } else {
+              return (
+                <tr key={item.userId}>
+                  <td className="fullname"><label className="mobile">Name</label>{item.fullname}</td>
+                  <td className="email"><label className="mobile">E-mail address</label>{item.email}</td>
+                  <td className="phone"><label className="mobile">Phone number</label>{item.phone}</td>
+                  <td className="options">
+                    <label className="mobile">Options</label>
+                    <span className="pencil" onClick={() => this.editRow(item.userId)}></span>
+                    <span className="trashcan" onClick={() => this.deleteRow(item.userId)}></span>
+                  </td>
+                </tr>
+              )
+            }
           }, this)}
         </tbody>
       </table>

@@ -12,11 +12,14 @@ class App extends Component {
     this.generateRandomRows = this.generateRandomRows.bind(this);
     this.getFormData = this.getFormData.bind(this);
     this.changeState = this.changeState.bind(this);
+    this.setEditableRowData = this.setEditableRowData.bind(this);
+    this.getCurrentParticipantsTableData = this.getCurrentParticipantsTableData.bind(this);
 
     let randomRows = this.generateRandomRows(20);
 
     this.state = {
-      randomRows: randomRows
+      randomRows: randomRows,
+      editRow: null
     };
   }
 
@@ -38,7 +41,7 @@ class App extends Component {
   }
 
   // Generate non-unique Finnish mobile phone number
-  generate_mobile() {
+  generateMobile() {
     const digits = "0123456789";
     const prefixes = ["045", "050", "040"];
 
@@ -75,10 +78,10 @@ class App extends Component {
       let randomizedLastName = lastnames[Math.floor(Math.random() * lastnames.length)];
 
       randomRows.push({
-        user_id: generatedIds[i],
-        full_name: randomizedFirstName + " " + randomizedLastName,
+        userId: generatedIds[i],
+        fullname: randomizedFirstName + " " + randomizedLastName,
         email: this.generateHalfRandomEmail(randomizedFirstName, randomizedLastName),
-        phone: this.generate_mobile()
+        phone: this.generateMobile()
       });
     }
 
@@ -90,19 +93,19 @@ class App extends Component {
     // Capture the state before we try to add new
     let currentRows = [...this.state.randomRows];
 
-    // Check whether there are existing records, otherwise the user_id will be set as 1
+    // Check whether there are existing records, otherwise the userId will be set as 1
     if (currentRows.length) {
       // Find out the largest id & increment that by one
       // https://codeburst.io/javascript-finding-minimum-and-maximum-values-in-an-array-of-objects-329c5c7e22a2
       function getMaxY() {
-        return currentRows.reduce((max, p) => p.user_id > max ? p.user_id : max, currentRows[0].user_id);
+        return currentRows.reduce((max, p) => p.userId > max ? p.userId : max, currentRows[0].userId);
       }
 
       let biggestUserId = getMaxY();
 
-      formData.user_id = biggestUserId + 1;
+      formData.userId = biggestUserId + 1;
     } else {
-      formData.user_id = 1;
+      formData.userId = 1;
     }
 
     currentRows.push(formData);
@@ -115,16 +118,33 @@ class App extends Component {
     this.addParticipant(formData);
   }
 
-  // FIXME: Find a better way to do this without a separate function
-  changeState(sortedRowData) {
-    this.setState({ randomRows: sortedRowData });
+  // The general state changing function, used many times on different purposes
+  changeState(data) {
+    this.setState({
+      randomRows: data, 
+      editRow: null
+    });
+  }
+
+  setEditableRowData(data) {
+    this.setState({ editRow: data });
+  }
+
+  // Inline editing has been cancelled, render the table as it was before opening the inline editing
+  getCurrentParticipantsTableData(data) {
+    this.changeState(data);
   }
 
   render() {
     return (
       <div id="app-wrapper">
         <AddParticipantForm submittedFormData={this.getFormData} />
-        <ParticipantsTable data={this.state.randomRows} passSortedDataBack={this.changeState} />
+        <ParticipantsTable
+          data={this.state.randomRows}
+          passSortedDataBack={this.changeState}
+          editableRowData={this.setEditableRowData}
+          getEditableRowData={this.state.editRow}
+          tableData={this.getCurrentParticipantsTableData} />
       </div>
     )
   }

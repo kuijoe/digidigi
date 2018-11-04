@@ -1,0 +1,48 @@
+tr.inline-editable-table-row input {
+    height: calc(2.5rem - 2px);
+    margin: 0;
+}
+
+tr.inline-editable-table-row input[type="text"].inline-full-name {
+    width: 60%;
+}
+
+/* Blue submit button */
+.options input[type="submit"] {
+    background-color: #07f;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1rem;
+    border: 0;
+    margin: 0;
+    padding: 0 1.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    float: right;
+}
+
+.options input[type="button"].cancel {
+    font-weight: 500;
+    font-size: 1rem;
+    border: 0;
+    margin: 0 0.5rem 0 0;
+    padding: 0 1.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    border-radius: 0;
+    background-color: #EDEDED;
+    color: #07f;
+    line-height: 2.5rem;
+    vertical-align: bottom;
+}
+
+.inner-table {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.inner-table tr td.options {
+    margin: 0;
+    padding: 0;
+}
