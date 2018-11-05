@@ -92,6 +92,7 @@ tr.inline-editable-table-row input {
     }
 
     .inside-job {
+        display: block;
         margin-top: 1rem;
     }
 
@@ -115,7 +116,7 @@ tr.inline-editable-table-row input {
     }
 }
 
-@media all and (max-width: calc(48rem - 1px)) {
+@media all and (max-width: 767px) {
     .inline-editable-table-row {
         height: auto;
     }
@@ -125,12 +126,13 @@ tr.inline-editable-table-row input {
     }
 
     .inside-job {
+        display: block;
         margin-top: 1rem;
     }
 
     .inside-job .inline-full-name, .inside-job .inline-email, .inside-job .inline-phone {
         text-align: left;
-        width: 90%;
+        width: 80%;
         display: block;
         margin: 0 auto 1rem;
     }
