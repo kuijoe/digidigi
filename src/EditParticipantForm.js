@@ -51,42 +51,36 @@ class EditParticipantForm extends Component {
         this.props.cancelButtonPressed(false);
     }
 
-    // Yo dawg. Place a table inside td so that you can use form
+    // Yo dawg. Place a div inside td so that you can use form. Forget the inner table
     render() {
         return (
             <tr key={this.props.data.userId} className="inline-editable-table-row">
-                <td colSpan="4">
+                <td colSpan="4" className="a-col-too-wide">
                     <form onSubmit={this.handleSubmit}>
-                        <table className="inner-table">
-                            <tbody>
-                                <tr>
-                                    <td className="fullname"><label className="mobile">Name</label>
-                                        <input type="text" name="fullname" className="inline-full-name" required minLength="4"
-                                            defaultValue={this.props.data.fullname} 
-                                            onChange={this.handleInputChange}
-                                            ref={this.fullname} />
-                                    </td>
-                                    <td className="email"><label className="mobile">E-mail address</label>
-                                        <input type="email" placeholder="E-mail address" name="email" className="inline-email" required
-                                            defaultValue={this.props.data.email} 
-                                            onChange={this.handleInputChange}
-                                            ref={this.email} />
-                                    </td>
-                                    <td className="phone"><label className="mobile">Phone number</label>
-                                        <input type="tel" placeholder="Phone number" name="phone" className="inline-phone" required pattern="[0-9]{5,10}"
-                                            defaultValue={this.props.data.phone} 
-                                            onChange={this.handleInputChange}
-                                            ref={this.phone} />
-                                    </td>
-                                    <td className="options">
-                                        <label className="mobile">Options</label>
-                                        <input type="button" className="cancel" value="Cancel" onClick={this.handleCancelButtonClick} />
-                                        <input type="submit" value="Save" />
-                                    </td>
-                                </tr>
-                            </tbody>
+                        <div className="inside-job">
+                            <input type="text" name="fullname" className="inline-full-name" required minLength="4"
+                                defaultValue={this.props.data.fullname}
+                                onChange={this.handleInputChange}
+                                ref={this.fullname} />
 
-                        </table>
+                            
+                            <input type="email" placeholder="E-mail address" name="email" className="inline-email" required
+                                defaultValue={this.props.data.email}
+                                onChange={this.handleInputChange}
+                                ref={this.email} />
+
+                            <input type="tel" placeholder="Phone number" name="phone" className="inline-phone" required pattern="[0-9]{5,10}"
+                                defaultValue={this.props.data.phone}
+                                onChange={this.handleInputChange}
+                                ref={this.phone} />
+
+                            <div className="options">
+                                <input type="button" className="cancel" value="Cancel" onClick={this.handleCancelButtonClick} />
+                                <input type="submit" value="Save" />
+                            </div>
+
+                        </div>
+
                     </form>
                 </td>
             </tr >

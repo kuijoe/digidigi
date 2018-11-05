@@ -1,13 +1,11 @@
 tr.inline-editable-table-row input {
     height: calc(2.5rem - 2px);
     margin: 0;
-}
-
-tr.inline-editable-table-row input[type="text"].inline-full-name {
-    width: 60%;
+    background-color: #F9F9F9;
 }
 
 /* Blue submit button */
+
 .options input[type="submit"] {
     background-color: #07f;
     color: #fff;
@@ -40,9 +38,112 @@ tr.inline-editable-table-row input[type="text"].inline-full-name {
     width: 100%;
     margin: 0;
     padding: 0;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.inner-table tbody {
+    padding: 0;
+    margin: 0;
+}
+
+.inner-table td {
+    white-space: nowrap;
 }
 
 .inner-table tr td.options {
     margin: 0;
     padding: 0;
+}
+
+.inside-job {
+    padding: 0 1rem;
+    position: relative;
+}
+
+.inside-job .inline-full-name {
+    width: 22%;
+    margin-right: 1rem;
+}
+
+.inside-job .inline-email {
+    width: 32%;
+    margin-right: 1rem;
+}
+
+.inside-job .inline-phone {
+    width: 5rem;
+    margin-right: 1rem;
+}
+
+.inside-job .options {
+    display: inline-block;
+    text-align: right;
+    line-height: 40px;
+    position: absolute;
+    right: 0;
+}
+
+/* 976px - 768px breakpoint */
+
+@media all and (max-width: 61rem) and (min-width: 48rem) {
+    .inline-editable-table-row {
+        height: auto;
+    }
+
+    .inside-job {
+        margin-top: 1rem;
+    }
+
+    .inside-job .inline-full-name, .inside-job .inline-email, .inside-job .inline-phone {
+        text-align: left;
+        width: 50%;
+        display: block;
+        margin: 0 auto 1rem;
+    }
+
+    .inside-job .options {
+        display: block;
+        position: relative;
+        margin: 0 auto 1rem;
+        text-align: center;
+        right: auto;
+    }
+    
+    .inside-job .options input[type="submit"] {
+        float: inherit;
+    }
+}
+
+@media all and (max-width: calc(48rem - 1px)) {
+    .inline-editable-table-row {
+        height: auto;
+    }
+
+    .participants-table td.a-col-too-wide {
+        height: auto;
+    }
+
+    .inside-job {
+        margin-top: 1rem;
+    }
+
+    .inside-job .inline-full-name, .inside-job .inline-email, .inside-job .inline-phone {
+        text-align: left;
+        width: 90%;
+        display: block;
+        margin: 0 auto 1rem;
+    }
+
+    .inside-job .options {
+        display: block;
+        position: relative;
+        margin: 0 auto 1rem;
+        text-align: center;
+        right: auto;
+    }
+
+    .inside-job .options input[type="submit"] {
+        float: inherit;
+    }
 }

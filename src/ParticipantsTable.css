@@ -1,6 +1,7 @@
 .participants-table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: auto;
 }
 
 .participants-table th {
@@ -31,6 +32,7 @@
     background-color: #FFFFFF;
     height: 71px;
     padding: 0;
+    white-space: nowrap;
 }
 
 .participants-table tr th:first-child, .participants-table tr td:first-child {
@@ -69,6 +71,7 @@ label.mobile {
     display: none;
 }
 
+/* 768px breakpoint */
 @media all and (max-width: 48rem) {
     /* Display table differently */
     .participants-table tr {
